@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+      - name: database
+        persistentVolumeClaim:
+          claimName: database
+      - name: initdb
+        configMap:
+          name: mysql-initdb
+          defaultMode: 0755
+      containers:
+      - name: mysql-db
+        image: mysql:5.7.37
+        resources:
+          requests:
+            cpu: 1
+            memory: 1Gi
+        env:
+        #- name: MYSQL_ROOT_PASSWORD
+        #  value: root_password
+        - name: MYSQL_DATABASE
+          value: mysql
+        envFrom:
+        - secretRef:
+            name: mysql-root-password
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
+        - name: database
+          mountPath: "/var/lib/mysql"
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash", "-c", "/docker-entrypoint-initdb.d/init.sh"]
+          preStop:
+            exec:
+              #command: ["/bin/bash", "-c", "echo $(date) >> /var/lib/mysql/stop-at.log"]
+              command: ['/bin/bash', '-c', 'echo "$(date; /usr/bin/mysqladmin status)" >> /var/lib/mysql/preStop.mysql-status.log']

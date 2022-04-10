@@ -1,0 +1,33 @@
+# for testing
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb
+  namespace: default
+data:
+  mysql-create-test-user.sql: |
+    /*
+    Create test user and set grants if not exist
+    */
+
+    \! echo ">>> create test user and grant";
+    create user if not exists 'test'@'localhost' identified by 'test_password';
+    grant all privileges on *.* to 'test'@'localhost' with grant option;
+    create user if not exists 'test'@'%' identified by 'test_password';
+    grant all privileges on *.* to 'test'@'%' with grant option;
+    flush privileges;
+    -- check user grants and users
+    \! echo ">>> check test grants and users";
+    show grants for test;
+    select Host,User,Grant_priv,password_last_changed,account_locked from user;
+    \! echo "";
+
+  init.sh: |
+    #!/bin/bash
+    logfile="/var/lib/mysql/init.log"
+
+    sleep 180  # wait mysql finish its own initialization first, increase sleep time if need.
+    echo "$(date) - init start" >> ${logfile}
+
+    # execute sql
+    /usr/bin/mysql -uroot -p${MYSQL_ROOT_PASSWORD} -D mysql < /docker-entrypoint-initdb.d/mysql-create-test-user.sql >> ${logfile} 2>&1
