@@ -17,7 +17,7 @@ spec:
       volumes:
       - name: database
         persistentVolumeClaim:
-          claimName: database
+          claimName: mysql-db
       - name: initdb
         configMap:
           name: mysql-initdb
@@ -30,8 +30,6 @@ spec:
             cpu: 1
             memory: 1Gi
         env:
-        #- name: MYSQL_ROOT_PASSWORD
-        #  value: root_password
         - name: MYSQL_DATABASE
           value: mysql
         envFrom:

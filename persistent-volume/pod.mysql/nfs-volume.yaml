@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: database
+  name: nfs-db
   labels:
-    volume: db-volume
+    volume: nfs-db-volume
 spec:
   capacity:
-    storage: 2Gi
+    storage: 1Gi
   nfs:
     server: 192.168.122.10
     path: "/mnt/nfs/database"
