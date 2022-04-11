@@ -19,6 +19,10 @@ kubectl describe $(kubectl get pod -o=name | grep ${podname})
 
 ```
 
+### network tools to install
+```
+DEBIAN_FRONTEND=noninteractive apt install -y dnsutils iputils-ping net-tools
+```
 
 ### Reference
 https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/
