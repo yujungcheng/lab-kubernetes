@@ -1,4 +1,4 @@
-### pod with persistent-volume
+### resources status
 ```
 ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl get pv -o wide
 NAME       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM              STORAGECLASS   REASON   AGE     VOLUMEMODE
@@ -27,7 +27,7 @@ NAME                  TYPE                                  DATA   AGE
 mysql-root-password   Opaque                                1      9m28s
 
 
-# check the test account created by init script.
+# check the test account created by init script. (from an ubuntu pod with mysql client)
 ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl exec -ti -n demo ubuntu -- mysql -h mysql.default -u test -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -46,8 +46,10 @@ mysql>
 ```
 
 #### notes 
-mysql 8 image bug
+
 ```
+# mysql 8 image bug ?
+# https://topic.alibabacloud.com/a/mysql-official-source-does-not-boot-after-upgrading-from-803-direct-yum-to-804_1_41_30016705.html
 ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl logs mysql-hwt5g -f
 2022-04-08 01:53:01+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.28-1debian10 started.
 2022-04-08 01:53:03+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
@@ -60,4 +62,20 @@ ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl logs mysql-hwt5g -
 2022-04-08T01:53:10.870231Z 0 [ERROR] [MY-010119] [Server] Aborting
 2022-04-08T01:53:13.282953Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.28)  MySQL Community Server - GPL.
 ```
-> https://topic.alibabacloud.com/a/mysql-official-source-does-not-boot-after-upgrading-from-803-direct-yum-to-804_1_41_30016705.html
+```
+# the mysql pod logs has following error due to the livenessProbe.
+ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl logs mysql-c75kl | tail
+2022-04-11T00:04:35.852363Z 3201 [Note] Got an error reading communication packets
+2022-04-11T00:04:45.850347Z 3202 [Note] Got an error reading communication packets
+2022-04-11T00:04:55.851297Z 3203 [Note] Got an error reading communication packets
+2022-04-11T00:05:05.850596Z 3204 [Note] Got an error reading communication packets
+2022-04-11T00:05:15.851461Z 3205 [Note] Got an error reading communication packets
+2022-04-11T00:05:25.852368Z 3206 [Note] Got an error reading communication packets
+2022-04-11T00:05:35.851843Z 3207 [Note] Got an error reading communication packets
+2022-04-11T00:05:45.851614Z 3208 [Note] Got an error reading communication packets
+2022-04-11T00:05:55.850619Z 3209 [Note] Got an error reading communication packets
+2022-04-11T00:06:05.851910Z 3210 [Note] Got an error reading communication packets
+
+ubuntu@master:~$ kubectl describe pod mysql-c75kl | grep Liveness
+    Liveness:  tcp-socket :3306 delay=0s timeout=1s period=10s #success=1 #failure=3
+```
