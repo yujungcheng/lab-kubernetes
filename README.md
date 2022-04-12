@@ -31,3 +31,4 @@ DEBIAN_FRONTEND=noninteractive apt install -y dnsutils iputils-ping net-tools
 https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/
 https://lapee79.github.io/en/article/use-a-local-disk-by-local-volume-static-provisioner-in-kubernetes/
 https://blog.vikki.in/kubernetes-stateful-set-with-local-storage-persistent-volume/
+https://developer.aliyun.com/article/708483
