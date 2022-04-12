@@ -8,6 +8,7 @@ All examples are defined as manifest yaml file.
 - kubernetes version: 1.23.5
 - kubernetes cni provider: calico
 
+
 ### kubectl command examples
 ```
 # for example, there is only one pod name start with "mysql"
@@ -19,10 +20,14 @@ kubectl describe $(kubectl get pod -o=name | grep ${podname})
 
 ```
 
+
 ### network tools to install
 ```
 DEBIAN_FRONTEND=noninteractive apt install -y dnsutils iputils-ping net-tools
 ```
 
+
 ### Reference
 https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/
+https://lapee79.github.io/en/article/use-a-local-disk-by-local-volume-static-provisioner-in-kubernetes/
+https://blog.vikki.in/kubernetes-stateful-set-with-local-storage-persistent-volume/

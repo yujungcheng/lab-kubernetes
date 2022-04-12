@@ -38,8 +38,8 @@ data:
         sleep 2
       done
 
-      # wait extra time for mongo-0 initlaiization
-      sleep 30
+      # wait extra time for mongo-0 initlaiization complete
+      sleep 60
 
       echo "adding self to mongo-0"
       /usr/bin/mongo --host=${HOST} \
