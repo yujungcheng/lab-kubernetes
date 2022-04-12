@@ -1,5 +1,13 @@
+### Overview
 
-#### test dns resolution to mongo db replicas
+This example use stateful-set with config-map to initialize mongodb
+
+The config-map store initialise script and mount to sidecar container in each mongodb pod replica for initialise the mongodb.
+
+mongo-0 pod will be initialised as primary and mongo-1 and mongo-2 will be secondary.
+
+
+### test dns resolution to mongo db replicas
 ```
 ubuntu@master:~/lab-kubernetes/persistent-volume/stateful-set$ kubectl exec -ti ubuntu -n demo -- bash
 root@ubuntu:/# nslookup mongo-0.mongo.default
@@ -52,7 +60,7 @@ rtt min/avg/max/mdev = 0.299/0.386/0.474/0.087 ms
 ```
 
 
-#### manually initialise mondb replication
+### manually initialise mondb replication
 ```
 ubuntu@master:~/lab-kubernetes/persistent-volume/stateful-set$ kubectl exec -ti mongo-0 mongo
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
@@ -140,7 +148,7 @@ Successfully added user: {
 
 ```
 
-#### check mongo db status
+### check mongo db status
 ```
 rs0:PRIMARY> rs.status()
 {
@@ -292,5 +300,5 @@ rs0:PRIMARY> rs.status()
 
 ```
 
-#### ref
+### reference
 https://deeptiman.medium.com/mongodb-statefulset-in-kubernetes-87c2f5974821

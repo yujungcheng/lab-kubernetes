@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  serviceName: "mongo"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      # mongodb container
+      - name: mongodb
+        image: mongo:5.0.6-focal
+        command:
+        - mongod
+        - --bind_ip
+        - 0.0.0.0
+        - --replSet
+        - rs0
+        ports:
+        - containerPort: 27017
+          name: peer
+        # mount local storage
+        volumeMounts:
+        - name: local-pvc
+          mountPath: /data/db
+      # container to initialise mongodb
+      - name: init-mongodb
+        image: mongo:5.0.6-focal
+        command:
+        - bash
+        - /mongodb-config/init.sh
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          privileged: true
+        # mount the config volume
+        volumeMounts:
+        - name: config
+          mountPath: /mongodb-config
+      # define volumes
+      volumes:
+      - name: config
+        configMap:
+          name: "config-map-init-mongodb"
+  volumeClaimTemplates:
+  - metadata:
+      name: local-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "local-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
