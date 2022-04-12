@@ -1,3 +1,11 @@
+### overview
+
+This example use "NFS" shared storage in PV to store Mysql database data.
+
+The master node runs NFS server and export "/mnt/nfs/database" to a PV.
+Mysql database is running by using replica set with replica count 1.
+
+
 ### resources status
 ```
 ubuntu@master:~/lab-kubernetes/persistent-volume/pod$ kubectl get pv -o wide
