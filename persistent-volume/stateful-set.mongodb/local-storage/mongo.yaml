@@ -30,6 +30,14 @@ spec:
         volumeMounts:
         - name: local-pvc
           mountPath: /data/db
+        livenessProbe:
+          exec:
+            command:
+              - /usr/bin/mongo
+              - --eval
+              - db.serverStatus()
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
       # container to initialise mongodb
       - name: init-mongodb
         image: mongo:5.0.6-focal
