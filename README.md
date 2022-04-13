@@ -27,9 +27,14 @@ DEBIAN_FRONTEND=noninteractive apt install -y dnsutils iputils-ping net-tools
 ```
 
 
-### k8s tool
+### k9s tool
 https://github.com/derailed/k9s/releases
-
+```
+# install on master node
+$ wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
+$ tar -xvf k9s_Linux_x86_64.tar.gz
+$ mv k9s /usr/bin/k9s
+```
 
 
 ### Reference
