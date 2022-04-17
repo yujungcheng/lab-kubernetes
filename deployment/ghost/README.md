@@ -44,6 +44,10 @@ $ kubectl logs ghost-87c44854b-x5bmm -f
 ### configuration
 Check ghost tutorials for further configuration
 
+### increase replica
+Update sepc.replicas value and apply the manifest to increase replica
+
+
 ### reference
 https://github.com/docker-library/docs/tree/master/ghost
 https://ghost.org/docs/tutorials/
