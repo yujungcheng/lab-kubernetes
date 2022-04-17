@@ -39,9 +39,6 @@ backend hello_world_out
 ```
 
 
-### nginx server configuration
-
-
 ### reference
 https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
 https://medium.com/swlh/kubernetes-external-ip-service-type-5e5e9ad62fcd
