@@ -18,6 +18,8 @@ So we setup an "Haproxy" VM as load balancer and manually configure the haproxy 
 
 My understanding, in perfect world, the service gets an "external IP" (or floating IP) from external load balancer and the load balancer gets and configures "backend IP (worker node IP) and port (Node Port)" from the service automatically.
 
+And the "external IP" present in the service is just telling that what "external IP" from "floating IP pool" has assigned and exposed publicly for the service. Either configured by an external component to update or the service query the external component to update it.
+
 
 ### expose service via kubectl expose
 Assign NodePort 30080 for load balancing
@@ -29,8 +31,6 @@ $ kubectl expose deployment hello-world --type=LoadBalancer --target-port=8080 -
 
 # manually patch service nodeport to 30080
 $ kubectl patch svc hello-world -p '{"spec":{"ports":[{"port":80,"nodePort":30080}]}}'
-
-
 ```
 
 ### haporxy config
