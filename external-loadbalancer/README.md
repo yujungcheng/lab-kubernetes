@@ -43,6 +43,9 @@ Set to "NodePort" type also work with haproxy external load balancer.
 kubectl expose deployment hello-world --type=NodePort --target-port=8080 --port=80 --protocol=TCP --external-ip=192.168.1.100 --name=hello-world
 ```
 
+Its not necessary to set "external IP" to the service as long as load balancer is able to routes traffic to the cluster nodes.
+
+
 ### haporxy config
 Add config in /etc/haproxy.cfg and run "systemctl reload haproxy"
 ```
@@ -59,7 +62,10 @@ backend hello_world_out
 
 
 ### reference
+https://kubernetes.io/docs/concepts/services-networking/service/
 https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
 https://medium.com/swlh/kubernetes-external-ip-service-type-5e5e9ad62fcd
 https://www.domstamand.com/adding-haproxy-as-load-balancer-to-the-kubernetes-cluster/
 https://www.domstamand.com/installing-a-kubernetes-cluster-on-vmware-vsphere-and-what-ive-learned/
+
+https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#expose
