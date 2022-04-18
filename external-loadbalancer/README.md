@@ -12,6 +12,13 @@ Physical Network -> [Haproxy load balancer] -> Virtual Network -> [K8s Cluster]
                                                                    192.168.122.13 (worker3)
 ```
 
+"LoadBalancer" type of service needs integration with external load balancing in order to expose the service externally. This is what the lab enviornment does not have.
+
+So we setup an "Haproxy" VM as load balancer and manually configure the haproxy to load balancing to cluster worker node with service's node port.
+
+My understanding, in perfect world, the service gets an "external IP" (or floating IP) from external load balancer and the load balancer gets and configures "backend IP (worker node IP) and port (Node Port)" from the service automatically.
+
+
 ### expose service via kubectl expose
 Assign NodePort 30080 for load balancing
 ```
