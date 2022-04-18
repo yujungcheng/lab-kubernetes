@@ -20,6 +20,8 @@ My understanding, in perfect world, the service gets an "external IP" (or floati
 
 And the "external IP" present in the service is just telling that what "external IP" from "floating IP pool" has assigned and exposed publicly for the service. Either configured by an external component to update or the service query the external component to update it.
 
+The example assumes 192.168.1.100:80 is external IP and port created for the service.
+
 
 ### expose service via kubectl expose
 Assign NodePort 30080 for load balancing
