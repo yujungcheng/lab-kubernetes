@@ -8,7 +8,7 @@ Physical Network -> [Haproxy load balancer] -> Virtual Network -> [K8s Cluster]
 192.168.1.0/24       192.168.1.100
                      192.168.122.103           192.168.122.0/24    192.168.122.10 (master)
                                                                    192.168.122.11 (worker1)
-                                                                   192.168.122.13 (worker2)
+                                                                   192.168.122.12 (worker2)
                                                                    192.168.122.13 (worker3)
 ```
 
@@ -20,7 +20,7 @@ My understanding, in perfect world, the service gets an "external IP" (or floati
 
 And the "external IP" present in the service is just telling that what "external IP" from "floating IP pool" has assigned and exposed publicly for the service. Either configured by an external component to update or the service query the external component to update it.
 
-The example assumes 192.168.1.100:80 is external IP and port created for the service.
+The example assumes 192.168.1.100:80 is external IP and port created for the service, and assign 30080 as NodePort for the service.
 
 
 ### expose service via kubectl expose
