@@ -16,12 +16,14 @@ Physical Network -> [Haproxy load balancer] -> Virtual Network -> [K8s Cluster]
 Assign NodePort 30080 for load balancing
 ```
 # create service for the hello-world deployment via kubectl
-$ kubectl expose deployment hello-world --type=LoadBalancer --target-port=8080 --port=80 --protocol=TCP --external-ip=192.168.122.103 --name=hello-world
+$ kubectl expose deployment hello-world --type=LoadBalancer --target-port=8080 --port=80 --protocol=TCP --external-ip=192.168.1.100 --name=hello-world
 
 !!! kubectl expose command does not support to specify a node port number.
 
 # manually patch service nodeport to 30080
 $ kubectl patch svc hello-world -p '{"spec":{"ports":[{"port":80,"nodePort":30080}]}}'
+
+
 ```
 
 ### haporxy config
