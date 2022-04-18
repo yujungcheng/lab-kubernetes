@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app.kubernetes.io/name: load-balancer-example
   name: hello-world
+  labels:
+    name: hello-world
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: load-balancer-example
+      app: hello-world
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: load-balancer-example
+        app: hello-world
     spec:
       containers:
       - image: gcr.io/google-samples/node-hello:1.0
