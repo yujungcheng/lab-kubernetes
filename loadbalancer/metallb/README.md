@@ -131,9 +131,9 @@ speaker-hmbpx                1/1     Running   0          18h
 speaker-nrbcx                1/1     Running   0          18h
 ```
 
-controller pod is responsible to assign "external ip" to service and "speaker" act as arp-proxy to response ARP for the service external IP. each cluster node is running a "speaker" pod and each of them is assigned to response an external IP for a load balancer type service.
+controller pod is responsible to assign "external ip" to service (deployment) and "speaker" act as arp-proxy to response ARP for the service external IP. Each cluster node runs a "speaker" pod (daemonSet) and each of them is assigned to response an external IP for a load balancer type service.
 
-The external IP does not "truely" bind on an interface. Iptables is used to perform NAT to traffice that destinate to the external IP. 
+The external IP does not "truely" bind on an interface or exist. Iptables is used to perform destination NAT to traffic that destinate to the external IP.
 
 
 ### reference
