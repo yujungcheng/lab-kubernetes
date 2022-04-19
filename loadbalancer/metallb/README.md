@@ -119,6 +119,22 @@ Events:
   Normal  nodeAssigned  58s   metallb-speaker     announcing from node "worker1"
 ```
 
+### concept
+Metallb has two main component pods, controller and speaker.
+```
+$ kubectl get pod -n metallb-system
+NAME                         READY   STATUS    RESTARTS   AGE
+controller-57fd9c5bb-q6nl8   1/1     Running   0          18h
+speaker-2wstt                1/1     Running   0          18h
+speaker-2z2hv                1/1     Running   0          18h
+speaker-hmbpx                1/1     Running   0          18h
+speaker-nrbcx                1/1     Running   0          18h
+```
+
+controller pod is responsible to assign "external ip" to service and "speaker" act as arp-proxy to response ARP for the service external IP. each cluster node is running a "speaker" pod and each of them is assigned to response an external IP for a load balancer type service.
+
+The external IP does not "truely" bind on an interface. Iptables is used to perform NAT to traffice that destinate to the external IP. 
+
 
 ### reference
 https://metallb.universe.tf/
