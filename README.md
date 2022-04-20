@@ -68,6 +68,7 @@ https://blog.vikki.in/kubernetes-stateful-set-with-local-storage-persistent-volu
 https://developer.aliyun.com/article/708483
 https://gaurav-kaushikgk88.medium.com/draining-uncordoning-in-a-kubernetes-cluster-7822dda01f0f
 
+https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727
 
 #### calico
 https://projectcalico.docs.tigera.io/about/about-kubernetes-services
