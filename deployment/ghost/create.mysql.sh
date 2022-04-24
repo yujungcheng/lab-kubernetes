@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ../../persistent-volume/pod.mysql
+cd ../../persistent-volume/nfs.pod.mysql
 ./apply.sh
 cd -
 
