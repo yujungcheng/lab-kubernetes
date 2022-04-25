@@ -1,0 +1,13 @@
+# create pvc for testing storage class of ceph csi rbd
+# the pvc status should be "Bound" after created.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ceph-csi-rbd-pvc-test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-rbd-sc
