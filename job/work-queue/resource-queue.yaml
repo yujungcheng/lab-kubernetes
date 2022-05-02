@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: work-queue
+    component: queue
+    lab.name: job.work-queue
+  name: resource-queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      lab.name: job.work-queue 
+  template:
+    metadata:
+      labels:
+        app: work-queue
+        component: queue
+        lab.name: job.work-queue 
+    spec:
+      containers:
+      - name: resource-queue
+        image: "gcr.io/kuar-demo/kuard-amd64:1"
+        imagePullPolicy: Always

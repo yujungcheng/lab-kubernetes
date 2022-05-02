@@ -21,9 +21,10 @@ kubectl describe $(kubectl get pod -o=name | grep ${podname})
 ```
 
 ### resource naming
+Naming of some resource to make config easier to read and map with other resources.
 ```
 config-map:
-  cm-<config map name>-<config map name>
+  cm-<application name>-<config map name>
 
 persistent-volume:
   pv-<applicaiton name>-<persistent volume name>
@@ -37,10 +38,7 @@ secrets:
 storage-class:
   sc-<applicaiton name>-<storage class name>
   sc-<storage class name>
-
 ```
-Application name refer to target object name such as, job, stateful-set, replica-set, deployment that resource to be binded with...etc
-
 
 ### network tools to install
 ```
