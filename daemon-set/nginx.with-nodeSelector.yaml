@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: "DaemonSet"
+metadata:
+  labels:
+    app: nginx
+    node: "odd"
+  name: nginx-on-odd-nodes
+spec:
+  selector:  # match labels of pod
+    matchLabels:
+      app: nginx
+      on_odd_node: "true"
+  template:
+    metadata:  # define labels of pod
+      labels:
+        app: nginx
+        on_odd_node: "true"
+    spec:
+      nodeSelector:  # to select nodes
+        odd_node: "true"
+      containers:
+        - name: nginx
+          image: nginx:1.21.6
